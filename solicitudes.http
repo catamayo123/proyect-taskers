@@ -1,0 +1,41 @@
+###
+GET http://localhost:8000/api/users/saludos HTTP/1.1
+
+
+POST http://localhost:3000/api/cursosDB/programacion HTTP/1.1
+Content-Type: application/json
+
+{
+	"id": "4",
+	"titulo":"Python Avanzado",
+	"lenguaje": "paython",
+	"vistas": "13553",
+	"nivel": "avanzado"
+}
+
+###
+PUT http://localhost:3000/api/cursosDB/programacion/3 HTTP/1.1
+Content-Type: application/json
+
+{
+	"id": "3",
+	"titulo":"Apredrende JS",
+	"lenguaje": "javaScript",
+	"vistas": "13998",
+	"nivel": "avanzado"
+}
+
+###
+
+PATCH http://localhost:3000/api/cursosDB/programacion/3 HTTP/1.1
+Content-Type: application/json
+
+{
+	"titulo":"Apredrende JavaScript",
+	"lenguaje": "JS",
+	"nivel": "intermedio"
+}
+
+###
+
+DELETE http://localhost:3000/api/cursosDB/programacion/1 HTTP/1.1
