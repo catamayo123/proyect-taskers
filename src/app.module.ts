@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import "reflect-metadata";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSourceConfig } from './config/data.source';
 
 @Module({
   // 1. Módulos externos que se importan, siempre mantener las import de config encima
@@ -11,6 +12,7 @@ import "reflect-metadata";
       isGlobal: true
     }),
     // modulos que no son de configuracion
+    TypeOrmModule.forRoot({...DataSourceConfig}),  // typeorm para el datasourse
     UsersModule
   ], 
 })
