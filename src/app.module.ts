@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSourceConfig } from './config/data.source';
+import { DataSourceConfig } from './configDataSourse/data.source';
+import { ProjectsModule } from './projects/projects.module';
+
 
 @Module({
   // 1. Módulos externos que se importan, siempre mantener las import de config encima
@@ -13,7 +15,8 @@ import { DataSourceConfig } from './config/data.source';
     }),
     // modulos que no son de configuracion
     TypeOrmModule.forRoot({...DataSourceConfig}),  // typeorm para el datasourse
-    UsersModule
+    UsersModule, 
+    ProjectsModule
   ], 
 })
 
