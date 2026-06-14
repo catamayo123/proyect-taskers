@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSourceConfig } from './configDataSourse/data.source';
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { DataSourceConfig } from './config/data.source';
 import { ProjectsModule } from './projects/projects.module';
+
 
 
 @Module({
@@ -14,7 +15,7 @@ import { ProjectsModule } from './projects/projects.module';
       isGlobal: true
     }),
     // modulos que no son de configuracion
-    TypeOrmModule.forRoot({...DataSourceConfig}),  // typeorm para el datasourse
+    TypeOrmModule.forRoot({...DataSourceConfig }),  // typeorm para el datasourse
     UsersModule, 
     ProjectsModule
   ], 

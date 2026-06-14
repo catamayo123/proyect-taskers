@@ -1,9 +1,9 @@
 // entidad de la relacion muchos a muchos
 import { Column, Entity, ManyToOne } from "typeorm";
-import { BaseEntity } from "src/configDataSourse/base.entity";
-import { ACCES_LEVEL } from "src/configDataSourse/roles";
+import { BaseEntity } from "../../config/base.entity";
+import { ACCES_LEVEL } from "../../config/roles";
 import { UsersEntity } from "./users.entity";
-import { ProyectsEntity } from "src/projects/entites/projects,entity";
+import { ProyectsEntity } from "../../projects/entites/projects.entity";
 
 @Entity({ name: 'users_projects' })
 export class UsersProjectsEntity extends BaseEntity {
