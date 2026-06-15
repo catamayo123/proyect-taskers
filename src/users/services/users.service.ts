@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { UsersEntity } from '../entites/users.entity';
 import { UserDTO, UserUpdateDTO } from '../dtos/user.dto';
-import { DeleteResult } from 'typeorm/browser';
 
 @Injectable()
 export class UsersService {
@@ -25,7 +24,8 @@ export class UsersService {
     try {
       return await this.userRepository.save(body)
     } catch (error) {
-      throw new Error('No se creo el Usuario. Error Inesperado')
+      // si error es instancia de Error extrae su .message, si no, lo convierte a string
+      throw new Error(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -37,7 +37,7 @@ export class UsersService {
     try {
       return await this.userRepository.find()
     } catch (error) {
-      throw new Error('No encontraron usuarios')
+      throw new Error(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -54,7 +54,7 @@ export class UsersService {
     try {
       return await this.userRepository.createQueryBuilder('user').where({ id }).getOneOrFail();
     } catch (error) {
-      throw new Error(`No se creo el Usuario con id: ${id}`)
+      throw new Error(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -75,7 +75,7 @@ export class UsersService {
       }
       return user;
     } catch (error) {
-      throw new Error(`No logro modificar el Usuario con id: ${id}`)
+      throw new Error(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -92,7 +92,7 @@ export class UsersService {
       }
       return user;
     } catch (error) {
-      throw new Error(`No logro modificar el Usuario con id: ${id}`)
+      throw new Error(error instanceof Error ? error.message : String(error))
     }
   }
 }
