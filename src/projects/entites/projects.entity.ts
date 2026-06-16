@@ -4,7 +4,7 @@ import { BaseEntity } from "../../config/base.entity";
 import { UsersProjectsEntity } from "../../users/entites/usersProyects.entity";
 
 @Entity({ name: 'proyects' })
-export class ProyectsEntity extends BaseEntity implements IProject {
+export class ProjectsEntity extends BaseEntity implements IProject {
     @Column()
     name!: String;
 

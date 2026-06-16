@@ -7,6 +7,7 @@ import { ProjectsModule } from './projects/projects.module';
 
 
 
+
 @Module({
   // 1. Módulos externos que se importan, siempre mantener las import de config encima
   imports: [
@@ -18,7 +19,7 @@ import { ProjectsModule } from './projects/projects.module';
     TypeOrmModule.forRoot({...DataSourceConfig }),  // typeorm para el datasourse
     UsersModule, 
     ProjectsModule
-  ], 
+  ]
 })
 
 export class AppModule {}
