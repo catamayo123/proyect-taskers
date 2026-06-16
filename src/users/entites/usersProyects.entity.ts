@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ACCES_LEVEL } from "../../config/roles";
 import { UsersEntity } from "./users.entity";
-import { ProyectsEntity } from "../../projects/entites/projects.entity";
+import { ProjectsEntity } from "../../projects/entites/projects.entity";
 
 @Entity({ name: 'users_projects' })
 export class UsersProjectsEntity extends BaseEntity {
@@ -13,6 +13,6 @@ export class UsersProjectsEntity extends BaseEntity {
     @ManyToOne( ()=> UsersEntity, (user)=> user.projectsIncludes )
     user!: UsersEntity
 
-    @ManyToOne( ()=> ProyectsEntity, (project)=> project.userInclude )
-    project!: ProyectsEntity
+    @ManyToOne( ()=> ProjectsEntity, (project)=> project.userInclude )
+    project!: ProjectsEntity
 }
