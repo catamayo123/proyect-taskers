@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { UsersEntity } from '../entites/users.entity';
 import { UserDTO, UserUpdateDTO } from '../dtos/user.dto';
+import { ErrorManager } from 'src/config/error.manager';
 
 @Injectable()
 export class UsersService {
@@ -22,10 +23,36 @@ export class UsersService {
    */
   public async createUser(body: UserDTO): Promise<UsersEntity> {
     try {
+      const emailExist = await this.userRepository.findOneBy({ email: body.email })
+      if (emailExist) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'El email ya esta siendo usado por otro usuario'
+        })
+      }
+
+      const usernameExist = await this.userRepository.findOneBy({ username: body.username })
+      if (usernameExist) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'El username ya existe en el sistema'
+        })
+      }
+
+      const fullNameExist = await this.userRepository.findOneBy({
+        first_Name: body.first_Name,
+        last_Name: body.last_Name
+      })
+      if (fullNameExist) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'Ya existe un usuario con ese nombre apellidos'
+        })
+      }
+
       return await this.userRepository.save(body)
     } catch (error) {
-      // si error es instancia de Error extrae su .message, si no, lo convierte a string
-      throw new Error(error instanceof Error ? error.message : String(error))
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -35,9 +62,18 @@ export class UsersService {
    */
   public async findUsers(): Promise<UsersEntity[]> {
     try {
-      return await this.userRepository.find()
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : String(error))
+      const users: UsersEntity[] = await this.userRepository.find()
+
+      if (users.length === 0) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se encontraron ususarios en el sistema'
+        })
+      }
+      return users
+      
+    } catch (error){
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -54,7 +90,7 @@ export class UsersService {
     try {
       return await this.userRepository.createQueryBuilder('user').where({ id }).getOneOrFail();
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : String(error))
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -66,16 +102,20 @@ export class UsersService {
   /**
     * async updateUser 
   */
-  public async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult | undefined> {
+  public async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
     try {
       const user: UpdateResult = await this.userRepository.update(id, body)
 
       if (user.affected === 0) {
-        return undefined; // hay que manejar que se va a responder aqui en el controlador
+        throw new ErrorManager({
+          type: 'NOT_MODIFIED',
+          message: 'No se pudo modificar usuario en el sistema'
+        })
       }
       return user;
+
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : String(error))
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
 
@@ -83,16 +123,20 @@ export class UsersService {
   /**
     * async deleteUser 
   */
-  public async deleteUser(id: string): Promise<DeleteResult | undefined> {
+  public async deleteUser(id: string): Promise<DeleteResult> {
     try {
       const user: DeleteResult = await this.userRepository.delete(id)
 
       if (user.affected === 0) {
-        return undefined; // hay que manejar que se va a responder aqui en el controlador
+        throw new ErrorManager({
+          type: 'NOT_MODIFIED',
+          message: 'No se pudo Eliminar el usuario'
+        })
       }
-      return user;
+      return user; 
+
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : String(error))
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
 }

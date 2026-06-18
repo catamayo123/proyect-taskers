@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectsEntity } from '../entites/projects.entity';
 import { ProjectDTO, ProjectUpdateDTO } from '../dtos/project.dto';
+import { ErrorManager } from 'src/config/error.manager';
 
 @Injectable()
 export class ProjectsService {
@@ -19,6 +20,13 @@ export class ProjectsService {
     */
     public async createProject(body: ProjectDTO): Promise<ProjectsEntity> {
         try {
+            const nameExist = await this.projectRepository.findOneBy({ name: body.name })
+            if (nameExist) {
+                throw new ErrorManager({
+                    type: 'BAD_REQUEST',
+                    message: 'El nombre del proyecto ya esta siendo usado'
+                })
+            }
             return await this.projectRepository.save(body);
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : String(error))
@@ -55,7 +63,7 @@ export class ProjectsService {
      */
     public async updateProject(body: ProjectUpdateDTO, id: string): Promise<UpdateResult | undefined> {
         try {
-            const project: UpdateResult = await this.projectRepository.update(id,body)
+            const project: UpdateResult = await this.projectRepository.update(id, body)
             if (project.affected === 0) {
                 return undefined; // hay que manejar que se va a responder aqui en el controlador
             }
@@ -77,7 +85,7 @@ export class ProjectsService {
                 return undefined; // hay que manejar que se va a responder aqui en el controlador
             }
             return project
-            
+
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : String(error))
         }
