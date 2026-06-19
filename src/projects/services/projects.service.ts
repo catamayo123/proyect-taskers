@@ -29,7 +29,7 @@ export class ProjectsService {
             }
             return await this.projectRepository.save(body);
         } catch (error) {
-            throw new Error(error instanceof Error ? error.message : String(error))
+            throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
         }
     }
 
@@ -39,9 +39,17 @@ export class ProjectsService {
     */
     public async findProject(): Promise<ProjectsEntity[]> {
         try {
-            return await this.projectRepository.find();
+            const project: ProjectsEntity[] = await this.projectRepository.find()
+
+            if (project.length === 0) {
+                throw new ErrorManager({
+                    type: 'BAD_REQUEST',
+                    message: 'No se encontraron proyectos en el sistema'
+                })
+            }
+            return project
         } catch (error) {
-            throw new Error(error instanceof Error ? error.message : String(error))
+            throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
         }
     }
 
@@ -51,9 +59,16 @@ export class ProjectsService {
      */
     public async findProjectById(id: string): Promise<ProjectsEntity> {
         try {
-            return await this.projectRepository.createQueryBuilder('project').where({ id }).getOneOrFail();
+            const projectID: ProjectsEntity = await this.projectRepository.createQueryBuilder('project').where({ id }).getOneOrFail();
+            if (!projectID) {
+                throw new ErrorManager({
+                    type: 'BAD_REQUEST',
+                    message: 'No se encontró el proyecto especificado'
+                })
+            }
+            return projectID
         } catch (error) {
-            throw new Error(error instanceof Error ? error.message : String(error))
+            throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
         }
     }
 
@@ -65,12 +80,15 @@ export class ProjectsService {
         try {
             const project: UpdateResult = await this.projectRepository.update(id, body)
             if (project.affected === 0) {
-                return undefined; // hay que manejar que se va a responder aqui en el controlador
+                throw new ErrorManager({
+                    type: 'NOT_MODIFIED',
+                    message: 'No se pudo modificar el proyecto'
+                })
             }
             return project
 
         } catch (error) {
-            throw new Error(error instanceof Error ? error.message : String(error))
+            throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
         }
     }
 
@@ -82,12 +100,15 @@ export class ProjectsService {
         try {
             const project: DeleteResult = await this.projectRepository.delete(id)
             if (project.affected === 0) {
-                return undefined; // hay que manejar que se va a responder aqui en el controlador
+                throw new ErrorManager({
+                    type: 'BAD_REQUEST',
+                    message: 'No se pudo Eliminar el proyecto'
+                })
             }
             return project
 
         } catch (error) {
-            throw new Error(error instanceof Error ? error.message : String(error))
+            throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
         }
     }
 

@@ -63,7 +63,6 @@ export class UsersService {
   public async findUsers(): Promise<UsersEntity[]> {
     try {
       const users: UsersEntity[] = await this.userRepository.find()
-
       if (users.length === 0) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
@@ -88,7 +87,15 @@ export class UsersService {
      */
   public async findUsersById(id: string): Promise<UsersEntity> {
     try {
-      return await this.userRepository.createQueryBuilder('user').where({ id }).getOneOrFail();
+      const userID: UsersEntity = await this.userRepository.createQueryBuilder('user').where({ id }).getOneOrFail();
+      if (!userID) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se encontró el ususario especificado'
+        })
+      }
+      return userID
+
     } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
@@ -105,7 +112,6 @@ export class UsersService {
   public async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
     try {
       const user: UpdateResult = await this.userRepository.update(id, body)
-
       if (user.affected === 0) {
         throw new ErrorManager({
           type: 'NOT_MODIFIED',
@@ -126,10 +132,9 @@ export class UsersService {
   public async deleteUser(id: string): Promise<DeleteResult> {
     try {
       const user: DeleteResult = await this.userRepository.delete(id)
-
       if (user.affected === 0) {
         throw new ErrorManager({
-          type: 'NOT_MODIFIED',
+          type: 'BAD_REQUEST',
           message: 'No se pudo Eliminar el usuario'
         })
       }
