@@ -1,0 +1,156 @@
+### Crear 1er Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Carlos Antonio",
+	"last_Name": "Tamayo Ramirez",
+	"age": "29",
+	"email": "camilotr@ort.sda.gae.com.cu",
+	"username": "carlostr",
+	"password": "camilotr123",
+	"role": "ADMIN"
+}
+
+### Crear 2do Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Luis Miguel",
+	"last_Name": "Garcia Lopez",
+	"age": "25",
+	"email": "luisgl@ort.sda.gae.com.cu",
+	"username": "luisgl",
+	"password": "luisgl123",
+	"role": "BASIC"
+}
+
+### Crear 3er Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Maria Elena",
+	"last_Name": "Hernandez Cruz",
+	"age": "30",
+	"email": "mariahc@ort.sda.gae.com.cu",
+	"username": "mariahc",
+	"password": "mariahc123",
+	"role": "BASIC"
+}
+
+### Crear 4to Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Carlos Andres",
+	"last_Name": "Martinez Ruiz",
+	"age": "22",
+	"email": "carlosmr@ort.sda.gae.com.cu",
+	"username": "carlosmr",
+	"password": "carlosmr123",
+	"role": "BASIC"
+}
+
+### Crear 5to Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Ana Sofia",
+	"last_Name": "Diaz Torres",
+	"age": "28",
+	"email": "anadt@ort.sda.gae.com.cu",
+	"username": "anadt",
+	"password": "anadt123",
+	"role": "BASIC"
+}
+
+### Crear 6to Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Pedro Jose",
+	"last_Name": "Sanchez Vega",
+	"age": "35",
+	"email": "pedrosv@ort.sda.gae.com.cu",
+	"username": "pedrosv",
+	"password": "pedrosv123",
+	"role": "BASIC"
+}
+
+### Crear 7mo Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Laura Isabel",
+	"last_Name": "Ramirez Flores",
+	"age": "27",
+	"email": "laurarf@ort.sda.gae.com.cu",
+	"username": "laurarf",
+	"password": "laurarf123",
+	"role": "BASIC"
+}
+
+### Crear 8vo Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Diego Alejandro",
+	"last_Name": "Torres Mendoza",
+	"age": "32",
+	"email": "diegotm@ort.sda.gae.com.cu",
+	"username": "diegotm",
+	"password": "diegotm123",
+	"role": "BASIC"
+}
+
+### Crear 9no Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Valentina",
+	"last_Name": "Ortiz Castro",
+	"age": "19",
+	"email": "valentinaoc@ort.sda.gae.com.cu",
+	"username": "valentinaoc",
+	"password": "valentinaoc123",
+	"role": "BASIC"
+}
+
+### Crear 10mo Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Javier",
+	"last_Name": "Morales Rios",
+	"age": "38",
+	"email": "javiermr@ort.sda.gae.com.cu",
+	"username": "javiermr",
+	"password": "javiermr123",
+	"role": "BASIC"
+}
+
+### Crear 11vo Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Sofia Camila",
+	"last_Name": "Castillo Paredes",
+	"age": "24",
+	"email": "sofacp@ort.sda.gae.com.cu",
+	"username": "sofacp",
+	"password": "sofacp123",
+	"role": "BASIC"
+}
+
+### listar todos
+GET http://localhost:8000/api/users/listaru HTTP/1.1

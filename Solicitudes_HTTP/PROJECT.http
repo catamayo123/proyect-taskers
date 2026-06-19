@@ -1,0 +1,26 @@
+### Crear Proyecto 1
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sistema de Gestión de Tareas",
+    "description": "Aplicación web para administrar tareas, asignar responsables y dar seguimiento al progreso del equipo."
+}
+
+### LISTAR TODOS LOS PROYECTOS
+GET http://localhost:8000/api/project/listarP HTTP/1.1
+
+### LISTAR PROYECTO POR ID
+GET http://localhost:8000/api/project/df8fbbc2-e428-43db-ac8a-ed1d85163a72 HTTP/1.1
+
+### EDITAR PROYECTO
+PUT http://localhost:8000/api/project/editarP/df8fbbc2-e428-43db-ac8a-ed1d85163a72 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Sistema de Gestión de Tareas V2",
+    "description": "corrigiendo submodulo listar."
+}
+
+### ELIMINAR PROYECTO
+DELETE http://localhost:8000/api/project/deleteU/17bf5323-4de9-40af-853a-a15abd8416b5 HTTP/1.1

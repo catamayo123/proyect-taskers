@@ -76,7 +76,7 @@ export class ProjectsService {
     /**
      * async updateProject
      */
-    public async updateProject(body: ProjectUpdateDTO, id: string): Promise<UpdateResult | undefined> {
+    public async updateProject(body: ProjectUpdateDTO, id: string): Promise<UpdateResult> {
         try {
             const project: UpdateResult = await this.projectRepository.update(id, body)
             if (project.affected === 0) {
@@ -96,7 +96,7 @@ export class ProjectsService {
     /**
      * async updateProject
      */
-    public async deleteProject(id: string): Promise<DeleteResult | undefined> {
+    public async deleteProject(id: string): Promise<DeleteResult> {
         try {
             const project: DeleteResult = await this.projectRepository.delete(id)
             if (project.affected === 0) {

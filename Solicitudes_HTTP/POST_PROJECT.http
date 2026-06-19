@@ -1,0 +1,92 @@
+### Crear 1er Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Diseño de Interfaz de Usuario",
+    "description": "Crear mockups y prototipos interactivos para la nueva plataforma web."
+}
+
+### Crear 2do Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Desarrollo de API REST",
+    "description": "Implementar endpoints RESTful para el módulo de autenticación y usuarios."
+}
+
+### Crear 3er Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Pruebas de Calidad QA",
+    "description": "Ejecutar pruebas funcionales y de regresión en los módulos críticos del sistema."
+}
+
+### Crear 4to Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Migración de Base de Datos",
+    "description": "Migrar datos del esquema actual al nuevo esquema normalizado en PostgreSQL."
+}
+
+### Crear 5to Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Documentación Técnica",
+    "description": "Redactar documentación técnica completa de los servicios y controladores implementados."
+}
+
+### Crear 6to Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Configuración de CI/CD",
+    "description": "Configurar pipelines de integración continua y despliegue automatizado en GitHub Actions."
+}
+
+### Crear 7mo Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Optimización de Rendimiento",
+    "description": "Analizar y optimizar consultas lentas y tiempos de respuesta del servidor."
+}
+
+### Crear 8vo Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Implementación de Autenticación",
+    "description": "Desarrollar módulo de autenticación JWT con roles y permisos de usuario."
+}
+
+### Crear 9no Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Despliegue en Producción",
+    "description": "Configurar servidor y realizar despliegue de la aplicación en entorno productivo."
+}
+
+### Crear 10mo Proyecto
+POST http://localhost:8000/api/project/registrarP HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Capacitación del Equipo",
+    "description": "Preparar y dictar sesiones de capacitación sobre las nuevas funcionalidades del sistema."
+}
+
+### LISTAR TODOS LOS PROYECTOS
+GET http://localhost:8000/api/project/listarP HTTP/1.1

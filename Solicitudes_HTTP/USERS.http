@@ -1,0 +1,36 @@
+### Crear Usuario
+POST http://localhost:8000/api/users/registrarU HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Antoni Antonio",
+	"last_Name":"Tamayo Ramirez",
+	"age": "29",
+	"email": "catamayo@ort.sda.gae.com.cu",
+	"username": "catamayo",
+	"password": "camilo123",
+	"role": "ADMIN"
+}
+
+### LISTAR TODOS LOS USUARIOS
+GET http://localhost:8000/api/users/listaru HTTP/1.1
+
+### LISTAR por ID
+GET http://localhost:8000/api/users/92685b9c-f0cc-4c25-87b7-6d4b87188226 HTTP/1.1
+
+### EDITAR usuario marielena 14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c 
+PUT http://localhost:8000/api/users/editarU/14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c HTTP/1.1
+Content-Type: application/json
+
+{
+	"first_Name": "Marta Carla",
+	"last_Name": "Hernandez Cruz",
+    "age": 25,
+	"email": "martahc@ort.sda.gae.com.cu",
+	"username": "martahc",
+    "password": "Maria123",
+	"role": "BASIC"
+}
+
+### DELETE USUARIO 14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c
+DELETE http://localhost:8000/api/users/deleteU/7055c7f0-21e8-474b-a38a-a378f7903067 HTTP/1.1
