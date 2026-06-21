@@ -1,15 +1,15 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { IProject } from "../../interfaces/project.interface";
 import { BaseEntity } from "../../config/base.entity";
-import { UsersProjectsEntity } from "../../users/entites/usersProyects.entity";
+import { UsersProjectsEntity } from "../../users/entites/usersProjects.entity";
 
-@Entity({ name: 'proyects' })
+@Entity({ name: 'projects' })
 export class ProjectsEntity extends BaseEntity implements IProject {
     @Column()
-    name!: String;
+    name!: string;
 
     @Column()
-    description!: String;
+    description!: string;
 
     @OneToMany( ()=> UsersProjectsEntity, (usersProjects)=> usersProjects.project )
     userInclude!: UsersProjectsEntity[]

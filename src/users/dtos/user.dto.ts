@@ -9,27 +9,27 @@ export class UserDTO {
 
     @IsNotEmpty() // no puede ser vacio 
     @IsString() // tiene que ser un String
-    first_Name!: String;
+    first_Name: string;
 
     @IsNotEmpty()
     @IsString()
-    last_Name!: String;
+    last_Name: string;
 
     @IsNotEmpty()
     @IsNumber()
-    age!: Number;
+    age: number;
 
     @IsNotEmpty()
     @IsString()
-    email!: String;
+    email: string;
 
     @IsNotEmpty()
     @IsString()
-    username!: String;
+    username: string;
 
     @IsNotEmpty()
     @IsString()
-    password!: String;
+    password: string;
 
     @IsNotEmpty()
     @IsEnum(ROLES) // enum o constante numerica de tipo rol. ROLE esta ubicado en src/config/roles
@@ -43,27 +43,27 @@ export class UserUpdateDTO {
 
     @IsOptional()
     @IsString()
-    first_Name!: String;
+    first_Name: string;
 
     @IsOptional()
     @IsString()
-    last_Name!: String;
+    last_Name: string;
 
     @IsOptional()
     @IsNumber()
-    age!: Number;
+    age: number;
 
     @IsOptional()
     @IsString()
-    email!: String;
+    email: string;
 
     @IsOptional()
     @IsString()
-    username!: String;
+    username: string;
 
     @IsOptional()
     @IsString()
-    password!: String;
+    password: string;
 
     @IsOptional()
     @IsEnum(ROLES) // enum o constante numerica de tipo rol. ROLE esta ubicado en src/config/roles

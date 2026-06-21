@@ -2,27 +2,27 @@ import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ROLES } from "../../config/roles";
 import { IUser } from "../../interfaces/user.interface";
-import { UsersProjectsEntity } from "./usersProyects.entity";
+import { UsersProjectsEntity } from "./usersProjects.entity";
 
 @Entity({ name: 'users' })
 export class UsersEntity extends BaseEntity implements IUser {
     @Column()
-    first_Name!: String;
+    first_Name: string;
 
     @Column()
-    last_Name!: String;
+    last_Name: string;
 
     @Column()
-    age!: Number;
+    age: number;
 
     @Column({unique: true})
-    email!: String;
+    email: string;
 
     @Column({unique: true})
-    username!: String;
+    username: string;
 
     @Column()
-    password!: String;
+    password: string;
 
     @Column({ type: 'enum', enum: ROLES })
     role!: ROLES;

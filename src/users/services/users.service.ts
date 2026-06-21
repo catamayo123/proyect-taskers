@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult, EntityNotFoundError } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { UsersEntity } from '../entites/users.entity';
 import { UserDTO, UserToProjectDTO, UserUpdateDTO } from '../dtos/user.dto';
 import { ErrorManager } from 'src/config/error.manager';
-import { UsersProjectsEntity } from '../entites/usersProyects.entity';
+import { UsersProjectsEntity } from '../entites/usersProjects.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,9 @@ export class UsersService {
     @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
     @InjectRepository(UsersProjectsEntity) private readonly userProjectRepository: Repository<UsersProjectsEntity>
 
-  ) { }
+  ) { 
+    //process.env
+  }
 
   // CREAR USUARIO que retornara una promesa de tipo UsersEntity que respondera con el mismo objeto que se esta creando
   /**
@@ -25,6 +28,8 @@ export class UsersService {
    */
   public async createUser(body: UserDTO): Promise<UsersEntity> {
     try {
+     
+
       const emailExist = await this.userRepository.findOneBy({ email: body.email })
       if (emailExist) {
         throw new ErrorManager({
@@ -51,8 +56,10 @@ export class UsersService {
           message: 'Ya existe un usuario con ese nombre apellidos'
         })
       }
-
-      return await this.userRepository.save(body)
+       // Encriptando el pass
+      const newPass = await bcrypt.hash( body.password , process.env.HASH_SALT );
+      return await this.userRepository.save({ ...body, password: newPass })
+      
     } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }

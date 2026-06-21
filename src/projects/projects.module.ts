@@ -3,7 +3,7 @@ import { ProjectsService } from './services/projects.service';
 import { ProjectsController } from './controllers/projects.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProjectsEntity } from './entites/projects.entity';
-import { UsersProjectsEntity } from 'src/users/entites/usersProyects.entity';
+import { UsersProjectsEntity } from 'src/users/entites/usersProjects.entity';
 
 @Module({
   imports: [

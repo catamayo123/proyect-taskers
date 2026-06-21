@@ -6,11 +6,11 @@ export class ProjectDTO {
 
     @IsNotEmpty()
     @IsString()
-    name!: String;
+    name!: string;
 
     @IsNotEmpty()
     @IsString()
-    description!: String;
+    description!: string;
 }
 
 // valdiar update
@@ -18,9 +18,9 @@ export class ProjectUpdateDTO {
 
     @IsOptional()
     @IsString()
-    name!: String;
+    name!: string;
 
     @IsOptional()
     @IsString()
-    description!: String;
+    description!: string;
 }
