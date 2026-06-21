@@ -6,17 +6,17 @@ Content-Type: application/json
 	"first_Name": "Antoni Antonio",
 	"last_Name":"Tamayo Ramirez",
 	"age": "29",
-	"email": "catamayo@ort.sda.gae.com.cu",
-	"username": "catamayo",
-	"password": "camilo123",
-	"role": "ADMIN"
+	"email": "antonitr@ort.sda.gae.com.cu",
+	"username": "antonitr",
+	"password": "antonitr123",
+	"role": "BASIC"
 }
 
 ### LISTAR TODOS LOS USUARIOS
 GET http://localhost:8000/api/users/listaru HTTP/1.1
 
 ### LISTAR por ID
-GET http://localhost:8000/api/users/b905645a-cabe-4ebd-a266-c3c24b5440f3 HTTP/1.1
+GET http://localhost:8000/api/users/7e815a44-fe56-4678-b9ce-4f08bb256c3f HTTP/1.1
 
 ### EDITAR usuario marielena 14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c 
 PUT http://localhost:8000/api/users/editarU/14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c HTTP/1.1

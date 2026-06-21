@@ -57,9 +57,9 @@ export class UsersService {
         })
       }
        // Encriptando el pass
-      const newPass = await bcrypt.hash( body.password , process.env.HASH_SALT );
+      const newPass = await bcrypt.hash( body.password , +process.env.HASH_SALT );
       return await this.userRepository.save({ ...body, password: newPass })
-      
+
     } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }

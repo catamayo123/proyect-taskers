@@ -1,6 +1,6 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
 
@@ -25,6 +25,10 @@ async function bootstrap() {
   })
 
   //app.enableCors() // Habilita CORS con opciones predeterminadas
+
+  // para que funcione el @Exclude() en la clase UserEntity
+  const reflector = app.get(Reflector);
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector))
 
   const configService = app.get(ConfigService); // obteneniendo lo que esta en config
   await app.listen(+ configService.get('PORT')); // se coloca + para que se convierta en numero 
