@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult, EntityNotFoundError } from 'typeorm';
 import { UsersEntity } from '../entites/users.entity';
-import { UserDTO, UserUpdateDTO } from '../dtos/user.dto';
+import { UserDTO, UserToProjectDTO, UserUpdateDTO } from '../dtos/user.dto';
 import { ErrorManager } from 'src/config/error.manager';
+import { UsersProjectsEntity } from '../entites/usersProyects.entity';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,8 @@ export class UsersService {
     // @InjectRepository llama la entidad usuario y tienes que nombrar el atributo y poner su tipo, como es generico se le 
     // coloca el nombre de la entidad que pasas por parametro en @InjectRepository
 
-    @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>
+    @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
+    @InjectRepository(UsersProjectsEntity) private readonly userProjectRepository: Repository<UsersProjectsEntity>
 
   ) { }
 
@@ -70,8 +72,8 @@ export class UsersService {
         })
       }
       return users
-      
-    } catch (error){
+
+    } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
@@ -87,16 +89,21 @@ export class UsersService {
      */
   public async findUsersById(id: string): Promise<UsersEntity> {
     try {
-      const userID: UsersEntity = await this.userRepository.createQueryBuilder('user').where({ id }).getOneOrFail();
-      if (!userID) {
+      const userID = await this.userRepository
+        .createQueryBuilder('user')
+        .where({ id })
+        .leftJoinAndSelect('user.projectsIncludes', 'projectsIncludes') // muestra la inclusion del proyecto en el usuario
+        .leftJoinAndSelect('projectsIncludes.project', 'project') // muestra la infomracion del proyecto al que esta vinculado ese usuario
+        .getOneOrFail();
+
+      return userID
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
           message: 'No se encontró el ususario especificado'
         })
       }
-      return userID
-
-    } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
@@ -138,8 +145,20 @@ export class UsersService {
           message: 'No se pudo Eliminar el usuario'
         })
       }
-      return user; 
+      return user;
 
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
+    }
+  }
+
+  // CREAR RELACION DE *-* USERSPROJECTS
+  /**
+   * async relacionUserToProject
+   */
+  public async relacionUserToProject(body: UserToProjectDTO) {
+    try {
+      return await this.userProjectRepository.save(body)
     } catch (error) {
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }

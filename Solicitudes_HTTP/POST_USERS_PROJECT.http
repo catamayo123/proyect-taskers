@@ -1,0 +1,9 @@
+### Crear union del 2do usuario con el 1er proyecto
+POST http://localhost:8000/api/users/users-to-projects HTTP/1.1
+Content-Type: application/json
+
+{
+    "accesLevel": "50",
+    "user": "b905645a-cabe-4ebd-a266-c3c24b5440f3", 
+    "project": "a2d0a8bf-2279-4410-a9c3-486169f46d44"
+}

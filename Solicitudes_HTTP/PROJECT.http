@@ -11,7 +11,7 @@ Content-Type: application/json
 GET http://localhost:8000/api/project/listarP HTTP/1.1
 
 ### LISTAR PROYECTO POR ID
-GET http://localhost:8000/api/project/df8fbbc2-e428-43db-ac8a-ed1d85163a72 HTTP/1.1
+GET http://localhost:8000/api/project/a2d0a8bf-2279-4410-a9c3-486169f46d44 HTTP/1.1
 
 ### EDITAR PROYECTO
 PUT http://localhost:8000/api/project/editarP/df8fbbc2-e428-43db-ac8a-ed1d85163a72 HTTP/1.1

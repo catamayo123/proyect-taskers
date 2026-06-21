@@ -16,7 +16,7 @@ Content-Type: application/json
 GET http://localhost:8000/api/users/listaru HTTP/1.1
 
 ### LISTAR por ID
-GET http://localhost:8000/api/users/92685b9c-f0cc-4c25-87b7-6d4b87188226 HTTP/1.1
+GET http://localhost:8000/api/users/b905645a-cabe-4ebd-a266-c3c24b5440f3 HTTP/1.1
 
 ### EDITAR usuario marielena 14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c 
 PUT http://localhost:8000/api/users/editarU/14a1fd9b-a05f-49bf-8f85-300e2fdc7a2c HTTP/1.1
