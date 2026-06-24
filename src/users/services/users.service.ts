@@ -18,7 +18,7 @@ export class UsersService {
     @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
     @InjectRepository(UsersProjectsEntity) private readonly userProjectRepository: Repository<UsersProjectsEntity>
 
-  ) { 
+  ) {
     //process.env
   }
 
@@ -28,7 +28,7 @@ export class UsersService {
    */
   public async createUser(body: UserDTO): Promise<UsersEntity> {
     try {
-     
+
 
       const emailExist = await this.userRepository.findOneBy({ email: body.email })
       if (emailExist) {
@@ -56,8 +56,8 @@ export class UsersService {
           message: 'Ya existe un usuario con ese nombre apellidos'
         })
       }
-       // Encriptando el pass
-      const newPass = await bcrypt.hash( body.password , +process.env.HASH_SALT );
+      // Encriptando el pass
+      const newPass = await bcrypt.hash(body.password, +process.env.HASH_SALT);
       return await this.userRepository.save({ ...body, password: newPass })
 
     } catch (error) {
@@ -105,6 +105,7 @@ export class UsersService {
 
       return userID
     } catch (error) {
+      // con esto se captura el fallo de getOneOrFail() y se responde con message
       if (error instanceof EntityNotFoundError) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
@@ -167,6 +168,33 @@ export class UsersService {
     try {
       return await this.userProjectRepository.save(body)
     } catch (error) {
+      throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
+    }
+  }
+
+  // METODO ASISTENTE PARA BUSCAR EL USUARIO EN LA BD POR LOS VALORES QUE ENTREN EN EL PARAMETRO VALUE
+  /**
+   * async finBy( {}:{} )   
+  */
+  public async finBy({ key, value }: {
+    key: keyof UserDTO,
+    value: any
+  }) {
+    try {
+      const user: UsersEntity = await this.userRepository.createQueryBuilder('user')
+        .addSelect('user.password') // puede que no sea necesario pero si falla algo con esto le dices que quieres evaluarlo
+        .where({ [key]: value })
+        .getOneOrFail()
+
+      return user
+    } catch (error) {
+      // con esto se captura el fallo de getOneOrFail() y se responde con message
+      if (error instanceof EntityNotFoundError) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se encontró el ususario especificado'
+        })
+      }
       throw ErrorManager.createSignatureError(error instanceof Error ? error.message : String(error))
     }
   }
