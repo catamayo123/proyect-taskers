@@ -18,18 +18,14 @@ export class UsersService {
     @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
     @InjectRepository(UsersProjectsEntity) private readonly userProjectRepository: Repository<UsersProjectsEntity>
 
-  ) {
-    //process.env
-  }
+  ) {}
 
   // CREAR USUARIO que retornara una promesa de tipo UsersEntity que respondera con el mismo objeto que se esta creando
   /**
    * async createUser (cuerpo del objeto) return promesa {creacion del usuario y retornar error en caso de que no se cree}
    */
-  public async createUser(body: UserDTO): Promise<UsersEntity> {
+  async createUser(body: UserDTO): Promise<UsersEntity> {
     try {
-
-
       const emailExist = await this.userRepository.findOneBy({ email: body.email })
       if (emailExist) {
         throw new ErrorManager({
@@ -66,10 +62,7 @@ export class UsersService {
   }
 
   // LISTAR USUARIO que retorna una promesa con la lista de ususrios 
-  /**
-   * async findUsers 
-   */
-  public async findUsers(): Promise<UsersEntity[]> {
+  async findUsers(): Promise<UsersEntity[]> {
     try {
       const users: UsersEntity[] = await this.userRepository.find()
       if (users.length === 0) {
@@ -91,10 +84,7 @@ export class UsersService {
   el metodo createQueryBuilder() necesita un alias y en este caso es usuario, y es el que permite encadenar metodos,
   con el podemos acceder a la propiedad where para buscar el ID
   */
-  /**
-     * async findUsersById 
-     */
-  public async findUsersById(id: string): Promise<UsersEntity> {
+  async findUsersById(id: string): Promise<UsersEntity> {
     try {
       const userID = await this.userRepository
         .createQueryBuilder('user')
@@ -121,10 +111,7 @@ export class UsersService {
     Aqui es donde se pone de manifiesto la clase UserUpdateDTO creada en el archivo user.dto.ts
     retorna una Promise < UpdateResult | undefined > porque despues sera manejada en el controlador
   */
-  /**
-    * async updateUser 
-  */
-  public async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
+ async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
     try {
       const user: UpdateResult = await this.userRepository.update(id, body)
       if (user.affected === 0) {
@@ -141,10 +128,7 @@ export class UsersService {
   }
 
   // ELIMINAR USUARIO POR EL ID 
-  /**
-    * async deleteUser 
-  */
-  public async deleteUser(id: string): Promise<DeleteResult> {
+  async deleteUser(id: string): Promise<DeleteResult> {
     try {
       const user: DeleteResult = await this.userRepository.delete(id)
       if (user.affected === 0) {
@@ -161,10 +145,7 @@ export class UsersService {
   }
 
   // CREAR RELACION DE *-* USERSPROJECTS
-  /**
-   * async relacionUserToProject
-   */
-  public async relacionUserToProject(body: UserToProjectDTO) {
+  async relacionUserToProject(body: UserToProjectDTO) {
     try {
       return await this.userProjectRepository.save(body)
     } catch (error) {
@@ -173,10 +154,7 @@ export class UsersService {
   }
 
   // METODO ASISTENTE PARA BUSCAR EL USUARIO EN LA BD POR LOS VALORES QUE ENTREN EN EL PARAMETRO VALUE
-  /**
-   * async finBy( {}:{} )   
-  */
-  public async finBy({ key, value }: {
+  async finBy({ key, value }: {
     key: keyof UserDTO,
     value: any
   }) {

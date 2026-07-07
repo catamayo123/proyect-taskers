@@ -8,6 +8,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // creando una instancia del modulo appModule
   app.setGlobalPrefix('api') // todas las rutas comenzaran con api/ lo que venga
+  
   app.use(morgan('dev')) // mostrar el metodo, ubucacion, estado .... en consola
 
   // Configuracion inicial de un DTOs con class Validator y validar la informacion en base a los controladores
@@ -32,6 +33,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService); // obteneniendo lo que esta en config
   await app.listen(+ configService.get('PORT')); // se coloca + para que se convierta en numero 
-  console.log(`La app esta se esta ejecutando en: ${await app.getUrl()}`);
+  console.log(`La app esta se esta ejecutando en: http://localhost:${ + configService.get('PORT') }`);
 }
 bootstrap();
