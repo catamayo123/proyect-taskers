@@ -1,4 +1,4 @@
 export interface IProject {
-    name : String;
-    description : String;
+    name: String;
+    description: String;
 }

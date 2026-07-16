@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectsEntity } from '../entites/projects.entity';
 import { ProjectDTO, ProjectUpdateDTO } from '../dtos/project.dto';
-import { ErrorManager } from 'src/config/error.manager';
-import { UsersProjectsEntity } from 'src/users/entites/usersProjects.entity';
+import { ErrorManager } from '../../config/error.manager';
+import { UsersProjectsEntity } from '../../users/entites/usersProjects.entity';
 
 @Injectable()
 export class ProjectsService {

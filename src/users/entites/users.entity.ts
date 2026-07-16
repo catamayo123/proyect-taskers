@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany } from "typeorm";
 import { Exclude } from "class-transformer";
+import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ROLES } from "../../config/roles";
 import { IUser } from "../../interfaces/user.interface";
@@ -16,10 +16,10 @@ export class UsersEntity extends BaseEntity implements IUser {
     @Column()
     age!: number;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     email!: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     username!: string;
 
     @Exclude() // excluye el pass del resultado de los metodos
@@ -29,6 +29,6 @@ export class UsersEntity extends BaseEntity implements IUser {
     @Column({ type: 'enum', enum: ROLES })
     role!: ROLES;
 
-    @OneToMany( ()=> UsersProjectsEntity, (usersProjects)=> usersProjects.user )
+    @OneToMany(() => UsersProjectsEntity, (usersProjects) => usersProjects.user)
     projectsIncludes!: UsersProjectsEntity[];
 }

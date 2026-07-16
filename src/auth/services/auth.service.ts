@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { ErrorManager } from 'src/config/error.manager';
-import { UsersEntity } from 'src/users/entites/users.entity';
-import { UsersService } from 'src/users/services/users.service';
+import { ErrorManager } from '../../config/error.manager';
+import { UsersEntity } from '../../users/entites/users.entity';
+import { UsersService } from '../../users/services/users.service';
 import { PyloadToken } from '../interfaces/auth.interface';
 
 @Injectable()
 export class AuthService {
-  constructor( private readonly userService: UsersService ) {}
+  constructor(private readonly userService: UsersService) { }
 
   // VALIDAR QUE EL USUARIO SI EXISTE, EL PASS SEA IGAL QUE EL QUE ESTA EN LA BD
   async validarUser(username: string, password: string) {
@@ -55,14 +55,14 @@ export class AuthService {
   }
 
   // GENERAR TOKENS, retorna el token y el usuario 
-  async generateJWT(user: UsersEntity) : Promise<any>{
+  async generateJWT(user: UsersEntity): Promise<any> {
     const getUser = await this.userService.findUsersById(user.id)
 
     // crear objeto payload
     const pyload: PyloadToken = {
       sub: getUser.id,
       role: getUser.role
-    } 
+    }
 
     return {
       accesToken: this.singJWT({
@@ -75,4 +75,3 @@ export class AuthService {
   }
 
 }
- 

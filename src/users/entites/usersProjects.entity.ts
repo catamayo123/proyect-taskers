@@ -1,4 +1,4 @@
-// entidad de la relacion muchos a muchos
+// entidad de la relacion muchos a muchos con entidades intermedias personalizadas.
 import { Column, Entity, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ACCES_LEVEL } from "../../config/roles";

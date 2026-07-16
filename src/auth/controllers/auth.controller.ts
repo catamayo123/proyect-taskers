@@ -1,19 +1,19 @@
 import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { AuthDTO } from '../DTO/auth.dto';
 import { AuthService } from '../services/auth.service';
-import type { AuthBody } from '../interfaces/auth.interface';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('login')
-  async login( @Body() {username, password}: AuthBody ){
-    const userValidate = await this.authService.validarUser(username, password)
-    
+  async login(@Body() body: AuthDTO) {
+    const userValidate = await this.authService.validarUser(body.username, body.password)
+
     if (!userValidate) {
       throw new UnauthorizedException('Usuario o contraseña incorrectos')
     }
-    
-    return await this.authService.generateJWT(userValidate);
+    const jwt = await this.authService.generateJWT(userValidate);
+    return jwt;
   }
 }

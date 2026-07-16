@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, DeleteResult, EntityNotFoundError } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UsersEntity } from '../entites/users.entity';
+import { DeleteResult, EntityNotFoundError, Repository, UpdateResult } from 'typeorm';
+import { ErrorManager } from '../../config/error.manager';
 import { UserDTO, UserToProjectDTO, UserUpdateDTO } from '../dtos/user.dto';
-import { ErrorManager } from 'src/config/error.manager';
+import { UsersEntity } from '../entites/users.entity';
 import { UsersProjectsEntity } from '../entites/usersProjects.entity';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UsersService {
     @InjectRepository(UsersEntity) private readonly userRepository: Repository<UsersEntity>,
     @InjectRepository(UsersProjectsEntity) private readonly userProjectRepository: Repository<UsersProjectsEntity>
 
-  ) {}
+  ) { }
 
   // CREAR USUARIO que retornara una promesa de tipo UsersEntity que respondera con el mismo objeto que se esta creando
   /**
@@ -111,7 +111,7 @@ export class UsersService {
     Aqui es donde se pone de manifiesto la clase UserUpdateDTO creada en el archivo user.dto.ts
     retorna una Promise < UpdateResult | undefined > porque despues sera manejada en el controlador
   */
- async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
+  async updateUser(body: UserUpdateDTO, id: string): Promise<UpdateResult> {
     try {
       const user: UpdateResult = await this.userRepository.update(id, body)
       if (user.affected === 0) {

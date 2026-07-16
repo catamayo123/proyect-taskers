@@ -11,5 +11,5 @@ declare namespace NodeJS {
 		HASH_SALT: string;
 		JWT_SECRET: string;
 		JWT_EXPIRES_IN: string;
-}
+	}
 }

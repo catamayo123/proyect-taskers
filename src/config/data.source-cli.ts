@@ -5,10 +5,10 @@
  El archivo data.source.ts original se queda intacto para que la app NestJS siga funcionando con @nestjs/config.
 */
 
-import { DataSource } from "typeorm"
-import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 import * as fs from "fs"
 import * as path from "path"
+import { DataSource } from "typeorm"
+import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 
 const envFile = path.resolve(process.cwd(), `.${process.env.NODE_ENV}.env`)
 if (fs.existsSync(envFile)) {
@@ -21,7 +21,7 @@ if (fs.existsSync(envFile)) {
         const key = trimmed.substring(0, eqIndex).trim()
         let value = trimmed.substring(eqIndex + 1).trim()
         if ((value.startsWith('"') && value.endsWith('"')) ||
-            (value.startsWith("'") && value.endsWith("'"))) {
+          (value.startsWith("'") && value.endsWith("'"))) {
           value = value.slice(1, -1)
         }
         process.env[key] = process.env[key] || value

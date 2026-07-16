@@ -1,6 +1,7 @@
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
 
@@ -8,7 +9,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // creando una instancia del modulo appModule
   app.setGlobalPrefix('api') // todas las rutas comenzaran con api/ lo que venga
-  
+
   app.use(morgan('dev')) // mostrar el metodo, ubucacion, estado .... en consola
 
   // Configuracion inicial de un DTOs con class Validator y validar la informacion en base a los controladores
@@ -31,8 +32,19 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector))
 
+  // Ver los endpoin en el nav y probarlos
+  const config = new DocumentBuilder()
+    .setTitle('Proyecto Tarea')
+    .setDescription('API de para proyectos con tareas a los usuarios dependiendo el rol')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   const configService = app.get(ConfigService); // obteneniendo lo que esta en config
   await app.listen(+ configService.get('PORT')); // se coloca + para que se convierta en numero 
-  console.log(`La app esta se esta ejecutando en: http://localhost:${ + configService.get('PORT') }`);
+  console.log(`La app esta se esta ejecutando en: http://localhost:${+ configService.get('PORT')}`);
 }
 bootstrap();

@@ -1,35 +1,35 @@
 // esto es una clase que va a contener todos los atributos de la calse usuario para validarlos
 
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
-import { ACCES_LEVEL, ROLES } from "src/config/roles";
+import { ACCES_LEVEL, ROLES } from "../../config/roles";
+import { ProjectsEntity } from "../../projects/entites/projects.entity";
 import { UsersEntity } from "../entites/users.entity";
-import { ProjectsEntity } from "src/projects/entites/projects.entity";
 
 export class UserDTO {
 
     @IsNotEmpty() // no puede ser vacio 
     @IsString() // tiene que ser un String
-    first_Name: string;
+    first_Name!: string;
 
     @IsNotEmpty()
     @IsString()
-    last_Name: string;
+    last_Name!: string;
 
     @IsNotEmpty()
     @IsNumber()
-    age: number;
+    age!: number;
 
     @IsNotEmpty()
     @IsString()
-    email: string;
+    email!: string;
 
     @IsNotEmpty()
     @IsString()
-    username: string;
+    username!: string;
 
     @IsNotEmpty()
     @IsString()
-    password: string;
+    password!: string;
 
     @IsNotEmpty()
     @IsEnum(ROLES) // enum o constante numerica de tipo rol. ROLE esta ubicado en src/config/roles
@@ -43,27 +43,27 @@ export class UserUpdateDTO {
 
     @IsOptional()
     @IsString()
-    first_Name: string;
+    first_Name!: string;
 
     @IsOptional()
     @IsString()
-    last_Name: string;
+    last_Name!: string;
 
     @IsOptional()
     @IsNumber()
-    age: number;
+    age!: number;
 
     @IsOptional()
     @IsString()
-    email: string;
+    email!: string;
 
     @IsOptional()
     @IsString()
-    username: string;
+    username!: string;
 
     @IsOptional()
     @IsString()
-    password: string;
+    password!: string;
 
     @IsOptional()
     @IsEnum(ROLES) // enum o constante numerica de tipo rol. ROLE esta ubicado en src/config/roles

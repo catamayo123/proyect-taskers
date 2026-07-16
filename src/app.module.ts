@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import "reflect-metadata";
+import { AuthModule } from './auth/auth.module';
 import { DataSourceConfig } from './config/data.source';
 import { ProjectsModule } from './projects/projects.module';
-import "reflect-metadata"
+import { UsersModule } from './users/users.module';
 
 
 
@@ -16,10 +17,12 @@ import "reflect-metadata"
       isGlobal: true
     }),
     // modulos que no son de configuracion
-    TypeOrmModule.forRoot({...DataSourceConfig }),  // typeorm para el datasourse
-    UsersModule, 
-    ProjectsModule
+    TypeOrmModule.forRoot({ ...DataSourceConfig }),  // typeorm para el datasourse
+    UsersModule,
+    AuthModule,
+    ProjectsModule,
+
   ]
 })
 
-export class AppModule {}
+export class AppModule { }

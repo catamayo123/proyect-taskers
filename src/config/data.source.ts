@@ -1,6 +1,6 @@
-import { ConfigModule, ConfigService } from "@nestjs/config"
-import { DataSource, DataSourceOptions } from "typeorm"
-import { SnakeNamingStrategy } from "typeorm-naming-strategies"
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { DataSource, DataSourceOptions } from "typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 ConfigModule.forRoot({
   envFilePath: `.${process.env.NODE_ENV}.env`
@@ -8,7 +8,7 @@ ConfigModule.forRoot({
 
 // COMO SE IMPORTO EL ConfigModule SE PUEDE USAR EL ARCHIVO .dev.env
 const ConfigServices = new ConfigService();
-    
+
 // exportar el DataSourceConfig tipado para las opciones de TypeORM y sera el encargado de correr las migraciones 
 // se puede migrar con el servidor apagado, pero tiene que estar levantada la BD y poder correr con un comando la migracion
 export const DataSourceConfig: DataSourceOptions = {
